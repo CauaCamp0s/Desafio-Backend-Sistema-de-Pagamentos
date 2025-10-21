@@ -252,6 +252,300 @@
       "_type": "request"
     },
     {
+      "_id": "req_create_charge_pix",
+      "parentId": "fld_charges",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/api/charges",
+      "name": "Criar Cobrança - PIX",
+      "description": "Criar cobrança com pagamento via PIX",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"customerId\": \"{{ _.customer_id }}\",\n  \"valor\": 100.50,\n  \"moeda\": \"BRL\",\n  \"metodo_pagamento\": \"PIX\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1698104700000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_charge_cartao",
+      "parentId": "fld_charges",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/api/charges",
+      "name": "Criar Cobrança - CARTÃO",
+      "description": "Criar cobrança com pagamento via cartão com parcelas",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"customerId\": \"{{ _.customer_id }}\",\n  \"valor\": 500.00,\n  \"moeda\": \"BRL\",\n  \"metodo_pagamento\": \"CARTAO\",\n  \"parcelas\": 3\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1698104600000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_charge_boleto",
+      "parentId": "fld_charges",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/api/charges",
+      "name": "Criar Cobrança - BOLETO",
+      "description": "Criar cobrança com pagamento via boleto com data de vencimento",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"customerId\": \"{{ _.customer_id }}\",\n  \"valor\": 250.00,\n  \"moeda\": \"BRL\",\n  \"metodo_pagamento\": \"BOLETO\",\n  \"data_vencimento\": \"2025-11-30T00:00:00.000Z\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1698104500000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_list_charges",
+      "parentId": "fld_charges",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/api/charges",
+      "name": "Listar Cobranças",
+      "description": "Retorna todas as cobranças cadastradas",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1698104400000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_charge_by_id",
+      "parentId": "fld_charges",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/api/charges/{{ _.charge_id }}",
+      "name": "Buscar Cobrança por ID",
+      "description": "Retorna os dados de uma cobrança específica",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1698104300000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_charge_valor_invalido",
+      "parentId": "fld_charges_tests",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/api/charges",
+      "name": "Teste: Valor Inválido (<=0)",
+      "description": "Deve retornar erro 400 - Valor deve ser maior que 0",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"customerId\": \"{{ _.customer_id }}\",\n  \"valor\": 0,\n  \"moeda\": \"BRL\",\n  \"metodo_pagamento\": \"PIX\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1698104200000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_charge_cliente_inexistente",
+      "parentId": "fld_charges_tests",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/api/charges",
+      "name": "Teste: Cliente Inexistente",
+      "description": "Deve retornar erro 404 - Cliente não encontrado",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"customerId\": \"00000000-0000-0000-0000-000000000000\",\n  \"valor\": 100.00,\n  \"moeda\": \"BRL\",\n  \"metodo_pagamento\": \"PIX\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1698104100000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_charge_boleto_sem_vencimento",
+      "parentId": "fld_charges_tests",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/api/charges",
+      "name": "Teste: Boleto sem Data Vencimento",
+      "description": "Deve retornar erro 400 - Data de vencimento obrigatória para boleto",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"customerId\": \"{{ _.customer_id }}\",\n  \"valor\": 200.00,\n  \"moeda\": \"BRL\",\n  \"metodo_pagamento\": \"BOLETO\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1698104000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_charge_pix_com_parcelas",
+      "parentId": "fld_charges_tests",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/api/charges",
+      "name": "Teste: PIX com Parcelas",
+      "description": "Deve retornar erro 400 - PIX não aceita parcelas",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"customerId\": \"{{ _.customer_id }}\",\n  \"valor\": 150.00,\n  \"moeda\": \"BRL\",\n  \"metodo_pagamento\": \"PIX\",\n  \"parcelas\": 2\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1698103900000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_charge_metodo_invalido",
+      "parentId": "fld_charges_tests",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/api/charges",
+      "name": "Teste: Método de Pagamento Inválido",
+      "description": "Deve retornar erro 400 - Método de pagamento inválido",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"customerId\": \"{{ _.customer_id }}\",\n  \"valor\": 100.00,\n  \"moeda\": \"BRL\",\n  \"metodo_pagamento\": \"DINHEIRO\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1698103800000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
       "_id": "fld_customers",
       "parentId": "wrk_payment_system",
       "modified": 1698105600000,
@@ -276,6 +570,30 @@
       "_type": "request_group"
     },
     {
+      "_id": "fld_charges",
+      "parentId": "wrk_payment_system",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "name": "Charges",
+      "description": "Endpoints CRUD de cobranças",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1698105400000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_charges_tests",
+      "parentId": "wrk_payment_system",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "name": "Charges - Testes",
+      "description": "Testes de validação de cobranças",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1698105300000,
+      "_type": "request_group"
+    },
+    {
       "_id": "wrk_payment_system",
       "parentId": null,
       "modified": 1698105600000,
@@ -293,12 +611,14 @@
       "name": "Base Environment",
       "data": {
         "base_url": "http://localhost:3000",
-        "customer_id": ""
+        "customer_id": "",
+        "charge_id": ""
       },
       "dataPropertyOrder": {
         "&": [
           "base_url",
-          "customer_id"
+          "customer_id",
+          "charge_id"
         ]
       },
       "color": null,

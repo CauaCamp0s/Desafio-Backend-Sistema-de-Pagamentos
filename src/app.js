@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import customerRoutes from './routes/customerRoutes.js';
+import chargeRoutes from './routes/chargeRoutes.js';
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api', customerRoutes);
+app.use('/api', chargeRoutes);
 
 app.use((req, res) => {
   res.status(404).json({

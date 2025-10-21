@@ -1,0 +1,349 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-10-21T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2023.5.8",
+  "resources": [
+    {
+      "_id": "req_health_check",
+      "parentId": "fld_customers",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/",
+      "name": "Health Check",
+      "description": "Verificar se a API está rodando",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1698105600000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_customer",
+      "parentId": "fld_customers",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/api/customers",
+      "name": "Criar Cliente",
+      "description": "Cadastrar um novo cliente no sistema",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"João Silva\",\n  \"email\": \"joao.silva@email.com\",\n  \"documento\": \"12345678900\",\n  \"telefone\": \"(11) 98765-4321\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1698105500000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_list_customers",
+      "parentId": "fld_customers",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/api/customers",
+      "name": "Listar Clientes",
+      "description": "Retorna todos os clientes cadastrados",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1698105400000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_customer_by_id",
+      "parentId": "fld_customers",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/api/customers/{{ _.customer_id }}",
+      "name": "Buscar Cliente por ID",
+      "description": "Retorna os dados de um cliente específico",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1698105300000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_delete_customer",
+      "parentId": "fld_customers",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/api/customers/{{ _.customer_id }}",
+      "name": "Deletar Cliente",
+      "description": "Remove um cliente do sistema",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1698105200000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_customer_validation_error",
+      "parentId": "fld_customers_tests",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/api/customers",
+      "name": "Teste: Validação - Campos Obrigatórios",
+      "description": "Deve retornar erro 400 com mensagem de campos obrigatórios",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"teste@email.com\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1698105100000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_customer_duplicate_email",
+      "parentId": "fld_customers_tests",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/api/customers",
+      "name": "Teste: Email Duplicado",
+      "description": "Deve retornar erro 409 - Email já cadastrado",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Maria Santos\",\n  \"email\": \"joao.silva@email.com\",\n  \"documento\": \"98765432100\",\n  \"telefone\": \"(11) 99999-8888\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1698105000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_customer_invalid_email",
+      "parentId": "fld_customers_tests",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/api/customers",
+      "name": "Teste: Email Inválido",
+      "description": "Deve retornar erro 400 - Email inválido",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Pedro Oliveira\",\n  \"email\": \"email-invalido\",\n  \"documento\": \"11122233344\",\n  \"telefone\": \"(11) 91234-5678\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1698104900000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_multiple_customers",
+      "parentId": "fld_customers_tests",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "url": "{{ _.base_url }}/api/customers",
+      "name": "Criar Cliente 2",
+      "description": "Segundo cliente para teste",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Maria Santos\",\n  \"email\": \"maria.santos@email.com\",\n  \"documento\": \"98765432100\",\n  \"telefone\": \"(11) 91234-5678\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1698104800000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_customers",
+      "parentId": "wrk_payment_system",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "name": "Customers",
+      "description": "Endpoints CRUD de clientes",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1698105600000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_customers_tests",
+      "parentId": "wrk_payment_system",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "name": "Customers - Testes",
+      "description": "Testes de validação e edge cases",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1698105500000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_payment_system",
+      "parentId": null,
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "name": "Sistema de Pagamentos API",
+      "description": "API REST para gerenciamento de clientes e pagamentos",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_base",
+      "parentId": "wrk_payment_system",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:3000",
+        "customer_id": ""
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "base_url",
+          "customer_id"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1698105600000,
+      "_type": "environment"
+    },
+    {
+      "_id": "env_dev",
+      "parentId": "env_base",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "name": "Development",
+      "data": {
+        "base_url": "http://localhost:3000"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "base_url"
+        ]
+      },
+      "color": "#7d69cb",
+      "isPrivate": false,
+      "metaSortKey": 1698105600000,
+      "_type": "environment"
+    },
+    {
+      "_id": "env_prod",
+      "parentId": "env_base",
+      "modified": 1698105600000,
+      "created": 1698105600000,
+      "name": "Production",
+      "data": {
+        "base_url": "https://api.payment-system.com"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "base_url"
+        ]
+      },
+      "color": "#d9534f",
+      "isPrivate": false,
+      "metaSortKey": 1698105700000,
+      "_type": "environment"
+    }
+  ]
+}
+

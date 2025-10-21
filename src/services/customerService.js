@@ -1,4 +1,5 @@
 import customerRepository from '../repositories/customerRepository.js';
+import { ValidationError, ConflictError, NotFoundError } from '../utils/errors.js';
 
 class CustomerService {
   validateCustomerData(data) {
@@ -33,27 +34,17 @@ class CustomerService {
   async create(customerData) {
     const validationErrors = this.validateCustomerData(customerData);
     if (validationErrors.length > 0) {
-      throw {
-        status: 400,
-        message: 'Dados inválidos',
-        errors: validationErrors
-      };
+      throw new ValidationError('Dados inválidos', validationErrors);
     }
 
     const existingEmail = await customerRepository.findByEmail(customerData.email);
     if (existingEmail) {
-      throw {
-        status: 409,
-        message: 'Email já cadastrado'
-      };
+      throw new ConflictError('Email já cadastrado');
     }
 
     const existingDocumento = await customerRepository.findByDocumento(customerData.documento);
     if (existingDocumento) {
-      throw {
-        status: 409,
-        message: 'Documento já cadastrado'
-      };
+      throw new ConflictError('Documento já cadastrado');
     }
 
     return await customerRepository.create(customerData);
@@ -67,10 +58,7 @@ class CustomerService {
     const customer = await customerRepository.findById(id);
     
     if (!customer) {
-      throw {
-        status: 404,
-        message: 'Cliente não encontrado'
-      };
+      throw new NotFoundError('Cliente não encontrado');
     }
 
     return customer;
@@ -80,10 +68,7 @@ class CustomerService {
     const customer = await customerRepository.findById(id);
     
     if (!customer) {
-      throw {
-        status: 404,
-        message: 'Cliente não encontrado'
-      };
+      throw new NotFoundError('Cliente não encontrado');
     }
 
     return await customerRepository.delete(id);

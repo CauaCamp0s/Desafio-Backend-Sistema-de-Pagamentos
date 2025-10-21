@@ -1,5 +1,6 @@
 import chargeRepository from '../repositories/chargeRepository.js';
 import customerRepository from '../repositories/customerRepository.js';
+import { ValidationError, NotFoundError } from '../utils/errors.js';
 
 class ChargeService {
   validateChargeData(data) {
@@ -60,19 +61,12 @@ class ChargeService {
   async create(chargeData) {
     const validationErrors = this.validateChargeData(chargeData);
     if (validationErrors.length > 0) {
-      throw {
-        status: 400,
-        message: 'Dados inválidos',
-        errors: validationErrors
-      };
+      throw new ValidationError('Dados inválidos', validationErrors);
     }
 
     const customer = await customerRepository.findById(chargeData.customerId);
     if (!customer) {
-      throw {
-        status: 404,
-        message: 'Cliente não encontrado'
-      };
+      throw new NotFoundError('Cliente não encontrado');
     }
 
     const chargeToCreate = {
@@ -102,10 +96,7 @@ class ChargeService {
     const charge = await chargeRepository.findById(id);
     
     if (!charge) {
-      throw {
-        status: 404,
-        message: 'Cobrança não encontrada'
-      };
+      throw new NotFoundError('Cobrança não encontrada');
     }
 
     return charge;
@@ -114,10 +105,7 @@ class ChargeService {
   async findByCustomerId(customerId) {
     const customer = await customerRepository.findById(customerId);
     if (!customer) {
-      throw {
-        status: 404,
-        message: 'Cliente não encontrado'
-      };
+      throw new NotFoundError('Cliente não encontrado');
     }
 
     return await chargeRepository.findByCustomerId(customerId);

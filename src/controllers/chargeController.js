@@ -1,7 +1,7 @@
 import chargeService from '../services/chargeService.js';
 
 class ChargeController {
-  async create(req, res) {
+  async create(req, res, next) {
     try {
       const chargeData = req.body;
       const charge = await chargeService.create(chargeData);
@@ -12,23 +12,11 @@ class ChargeController {
         data: charge
       });
     } catch (error) {
-      if (error.status) {
-        return res.status(error.status).json({
-          success: false,
-          message: error.message,
-          errors: error.errors || []
-        });
-      }
-
-      console.error('Erro ao criar cobrança:', error);
-      return res.status(500).json({
-        success: false,
-        message: 'Erro interno do servidor'
-      });
+      next(error);
     }
   }
 
-  async findAll(req, res) {
+  async findAll(req, res, next) {
     try {
       const charges = await chargeService.findAll();
       
@@ -38,15 +26,11 @@ class ChargeController {
         count: charges.length
       });
     } catch (error) {
-      console.error('Erro ao listar cobranças:', error);
-      return res.status(500).json({
-        success: false,
-        message: 'Erro interno do servidor'
-      });
+      next(error);
     }
   }
 
-  async findById(req, res) {
+  async findById(req, res, next) {
     try {
       const { id } = req.params;
       const charge = await chargeService.findById(id);
@@ -56,18 +40,7 @@ class ChargeController {
         data: charge
       });
     } catch (error) {
-      if (error.status) {
-        return res.status(error.status).json({
-          success: false,
-          message: error.message
-        });
-      }
-
-      console.error('Erro ao buscar cobrança:', error);
-      return res.status(500).json({
-        success: false,
-        message: 'Erro interno do servidor'
-      });
+      next(error);
     }
   }
 }

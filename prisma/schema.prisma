@@ -46,3 +46,15 @@ enum StatusPagamento {
   FALHADO
   EXPIRADO
 }
+
+model IdempotencyKey {
+  id             String   @id @default(uuid())
+  requestKey     String   @unique
+  responseStatus Int
+  responseBody   String   @db.Text
+  createdAt      DateTime @default(now())
+  expiresAt      DateTime
+
+  @@index([requestKey])
+  @@index([expiresAt])
+}

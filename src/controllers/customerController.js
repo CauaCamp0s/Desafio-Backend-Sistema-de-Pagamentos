@@ -1,7 +1,7 @@
 import customerService from '../services/CustomerService.js';
 
 class CustomerController {
-  async create(req, res) {
+  async create(req, res, next) {
     try {
       const customerData = req.body;
       const customer = await customerService.create(customerData);
@@ -12,23 +12,11 @@ class CustomerController {
         data: customer
       });
     } catch (error) {
-      if (error.status) {
-        return res.status(error.status).json({
-          success: false,
-          message: error.message,
-          errors: error.errors || []
-        });
-      }
-
-      console.error('Erro ao criar cliente:', error);
-      return res.status(500).json({
-        success: false,
-        message: 'Erro interno do servidor'
-      });
+      next(error);
     }
   }
 
-  async findAll(req, res) {
+  async findAll(req, res, next) {
     try {
       const customers = await customerService.findAll();
       
@@ -38,15 +26,11 @@ class CustomerController {
         count: customers.length
       });
     } catch (error) {
-      console.error('Erro ao listar clientes:', error);
-      return res.status(500).json({
-        success: false,
-        message: 'Erro interno do servidor'
-      });
+      next(error);
     }
   }
 
-  async findById(req, res) {
+  async findById(req, res, next) {
     try {
       const { id } = req.params;
       const customer = await customerService.findById(id);
@@ -56,22 +40,11 @@ class CustomerController {
         data: customer
       });
     } catch (error) {
-      if (error.status) {
-        return res.status(error.status).json({
-          success: false,
-          message: error.message
-        });
-      }
-
-      console.error('Erro ao buscar cliente:', error);
-      return res.status(500).json({
-        success: false,
-        message: 'Erro interno do servidor'
-      });
+      next(error);
     }
   }
 
-  async delete(req, res) {
+  async delete(req, res, next) {
     try {
       const { id } = req.params;
       await customerService.delete(id);
@@ -81,18 +54,7 @@ class CustomerController {
         message: 'Cliente removido com sucesso'
       });
     } catch (error) {
-      if (error.status) {
-        return res.status(error.status).json({
-          success: false,
-          message: error.message
-        });
-      }
-
-      console.error('Erro ao remover cliente:', error);
-      return res.status(500).json({
-        success: false,
-        message: 'Erro interno do servidor'
-      });
+      next(error);
     }
   }
 }

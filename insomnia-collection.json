@@ -45,6 +45,11 @@
         {
           "name": "Content-Type",
           "value": "application/json"
+        },
+        {
+          "name": "Idempotency-Key",
+          "value": "{{ _.idempotency_key_customer }}",
+          "description": "UUID único para prevenir duplicações"
         }
       ],
       "authentication": {},
@@ -269,6 +274,11 @@
         {
           "name": "Content-Type",
           "value": "application/json"
+        },
+        {
+          "name": "Idempotency-Key",
+          "value": "{{ _.idempotency_key_charge_pix }}",
+          "description": "UUID único para prevenir duplicações"
         }
       ],
       "authentication": {},
@@ -300,6 +310,11 @@
         {
           "name": "Content-Type",
           "value": "application/json"
+        },
+        {
+          "name": "Idempotency-Key",
+          "value": "{{ _.idempotency_key_charge_cartao }}",
+          "description": "UUID único para prevenir duplicações"
         }
       ],
       "authentication": {},

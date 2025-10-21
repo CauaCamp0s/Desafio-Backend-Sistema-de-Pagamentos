@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import customerRoutes from './routes/customerRoutes.js';
 import chargeRoutes from './routes/chargeRoutes.js';
+import { errorHandler, notFoundHandler } from './middlewares/errorHandler.js';
 
 const app = express();
 
@@ -20,20 +21,9 @@ app.get('/', (req, res) => {
 app.use('/api', customerRoutes);
 app.use('/api', chargeRoutes);
 
-app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    message: 'Rota não encontrada'
-  });
-});
+app.use(notFoundHandler);
 
-app.use((err, req, res, next) => {
-  console.error('Erro não tratado:', err);
-  res.status(500).json({
-    success: false,
-    message: 'Erro interno do servidor'
-  });
-});
+app.use(errorHandler);
 
 export default app;
 

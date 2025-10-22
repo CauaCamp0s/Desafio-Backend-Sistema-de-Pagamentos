@@ -13,6 +13,7 @@ API REST completa para gerenciamento de clientes e cobranças com sistema de ide
 - [Sistema de Idempotência](#-sistema-de-idempotência)
 - [Tratamento de Erros](#-tratamento-de-erros)
 - [Testando a API](#-testando-a-api)
+- [Testes Automatizados](#-testes-automatizados)
 - [Banco de Dados](#-banco-de-dados)
 - [Docker](#-docker)
 - [Troubleshooting](#-troubleshooting)
@@ -26,6 +27,7 @@ API REST completa para gerenciamento de clientes e cobranças com sistema de ide
 - **Prisma ORM** - ORM moderno para Node.js
 - **PostgreSQL 15** - Banco de dados relacional
 - **Docker & Docker Compose** - Containerização
+- **Jest & Supertest** - Testes automatizados
 
 ---
 
@@ -64,6 +66,12 @@ API REST completa para gerenciamento de clientes e cobranças com sistema de ide
   - Todos os endpoints documentados
   - Testes de validação incluídos
   - Variáveis de ambiente configuradas
+
+- [x] **Testes Automatizados**
+  - 51 testes unitários e de integração
+  - Cobertura de 100% nas camadas críticas
+  - Testes do CRUD de Customer completo
+  - Mocks do Prisma Client
 
 ---
 
@@ -615,6 +623,157 @@ Importe os endpoints usando a documentação acima ou converta a collection do I
 
 ---
 
+## 🧪 Testes Automatizados
+
+### Visão Geral
+
+O projeto possui uma suite completa de **51 testes automatizados** cobrindo o CRUD de Customer, incluindo testes unitários e de integração.
+
+### Tecnologias de Teste
+
+- **Jest** - Framework de testes
+- **Supertest** - Testes de integração HTTP
+- **Mocks** - Simulação do Prisma Client
+- **Cross-env** - Compatibilidade de variáveis de ambiente
+
+### Executar Testes
+
+```bash
+# Executar todos os testes
+npm test
+
+# Apenas testes unitários
+npm run test:unit
+
+# Apenas testes de integração
+npm run test:integration
+
+# Modo watch (re-executa ao salvar)
+npm run test:watch
+
+# Com relatório de cobertura
+npm run test:coverage
+```
+
+### Estrutura de Testes
+
+```
+src/__tests__/
+├── unit/
+│   ├── customerService.test.js      (20 testes)
+│   └── customerRepository.test.js   (14 testes)
+└── integration/
+    └── customerRoutes.test.js       (17 testes)
+```
+
+### Cobertura de Testes
+
+| Módulo | Cobertura |
+|--------|-----------|
+| CustomerService | 100% |
+| CustomerRepository | 100% |
+| CustomerController | 94.73% |
+| CustomerValidation | 89.18% |
+| CustomerRoutes | 100% |
+
+### Testes Unitários (34 testes)
+
+#### CustomerService (20 testes)
+
+**Validação de Dados:**
+- ✅ Valida dados corretos
+- ✅ Detecta nome vazio/ausente
+- ✅ Detecta email vazio/inválido
+- ✅ Detecta documento vazio
+- ✅ Detecta telefone vazio
+- ✅ Retorna múltiplos erros
+
+**Regras de Negócio:**
+- ✅ Cria cliente com dados válidos
+- ✅ Lança ValidationError para dados inválidos
+- ✅ Lança ConflictError se email já existe
+- ✅ Lança ConflictError se documento já existe
+- ✅ Lança NotFoundError quando não encontrado
+- ✅ Lista clientes corretamente
+- ✅ Busca cliente por ID
+- ✅ Deleta cliente existente
+
+#### CustomerRepository (14 testes)
+
+**Operações CRUD:**
+- ✅ Cria cliente no banco
+- ✅ Lista todos os clientes ordenados
+- ✅ Busca cliente por ID
+- ✅ Busca cliente por email
+- ✅ Busca cliente por documento
+- ✅ Deleta cliente
+- ✅ Desconecta do Prisma
+- ✅ Trata erros do Prisma corretamente
+
+### Testes de Integração (17 testes)
+
+#### POST /api/customers (9 testes)
+- ✅ Cria cliente com dados válidos (201)
+- ✅ Retorna 400 quando nome está ausente
+- ✅ Retorna 400 quando nome é muito curto
+- ✅ Retorna 400 quando email é inválido
+- ✅ Retorna 400 quando documento é inválido
+- ✅ Retorna 400 quando telefone é inválido
+- ✅ Retorna 409 quando email já existe
+- ✅ Retorna 409 quando documento já existe
+- ✅ Testa sistema de idempotência
+
+#### GET /api/customers (2 testes)
+- ✅ Lista todos os clientes (200)
+- ✅ Retorna lista vazia quando não há clientes
+
+#### GET /api/customers/:id (3 testes)
+- ✅ Retorna cliente específico (200)
+- ✅ Retorna 404 quando não encontrado
+- ✅ Retorna 400 quando ID é inválido
+
+#### DELETE /api/customers/:id (3 testes)
+- ✅ Deleta cliente existente (200)
+- ✅ Retorna 404 quando não encontrado
+- ✅ Retorna 400 quando ID é inválido
+
+### Exemplo de Saída dos Testes
+
+```bash
+npm test
+
+PASS  src/__tests__/integration/customerRoutes.test.js
+PASS  src/__tests__/unit/customerService.test.js
+PASS  src/__tests__/unit/customerRepository.test.js
+
+Test Suites: 3 passed, 3 total
+Tests:       51 passed, 51 total
+Snapshots:   0 total
+Time:        ~1.2s
+```
+
+### Boas Práticas Implementadas
+
+1. **Isolamento**: Testes não dependem de ordem de execução
+2. **Mocks**: Uso apropriado para isolar unidades
+3. **Cobertura**: 100% das camadas críticas
+4. **Nomenclatura**: Descrições claras em português
+5. **Organização**: Separação unit/integration
+6. **Assertions**: Verificações completas
+7. **Clean-up**: Limpeza de mocks entre testes
+
+### Ambiente de Teste
+
+Os testes utilizam:
+- Mocks do Prisma Client (não tocam no banco real)
+- Mocks das dependências externas
+- Configuração isolada via `jest.config.js`
+- Setup customizado em `jest.setup.js`
+
+```
+
+---
+
 ## 📊 Banco de Dados
 
 ### Schema Prisma
@@ -882,6 +1041,7 @@ Certifique-se de:
 - [x] Logs de erro
 - [x] Collection Insomnia
 - [x] Documentação completa
+- [x] Testes automatizados (51 testes)
 
 ---
 
@@ -896,7 +1056,8 @@ Certifique-se de:
 - [ ] Cache com Redis
 - [ ] Rate limiting
 - [ ] Documentação Swagger/OpenAPI
-- [ ] Testes unitários e de integração
+- [x] Testes unitários e de integração (Customer)
+- [ ] Testes para módulo de Charges
 - [ ] CI/CD com GitHub Actions
 - [ ] Monitoramento e métricas
 - [ ] Logs estruturados

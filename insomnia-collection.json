@@ -346,6 +346,11 @@
         {
           "name": "Content-Type",
           "value": "application/json"
+        },
+        {
+          "name": "Idempotency-Key",
+          "value": "{{ _.idempotency_key_charge_boleto }}",
+          "description": "UUID único para prevenir duplicações"
         }
       ],
       "authentication": {},
@@ -627,13 +632,21 @@
       "data": {
         "base_url": "http://localhost:3000",
         "customer_id": "",
-        "charge_id": ""
+        "charge_id": "",
+        "idempotency_key_customer": "550e8400-e29b-41d4-a716-446655440001",
+        "idempotency_key_charge_pix": "550e8400-e29b-41d4-a716-446655440002",
+        "idempotency_key_charge_cartao": "550e8400-e29b-41d4-a716-446655440003",
+        "idempotency_key_charge_boleto": "550e8400-e29b-41d4-a716-446655440004"
       },
       "dataPropertyOrder": {
         "&": [
           "base_url",
           "customer_id",
-          "charge_id"
+          "charge_id",
+          "idempotency_key_customer",
+          "idempotency_key_charge_pix",
+          "idempotency_key_charge_cartao",
+          "idempotency_key_charge_boleto"
         ]
       },
       "color": null,
